@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:news/features/home/views/categories_view/categories_view.dart';
 import 'package:news/features/home/views/sources_view/sources_view.dart';
 import 'package:news/features/home/widgets/custom_drawer.dart';
+import 'package:news/providers/home_screen_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,7 +14,8 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Home"),
       ),
-      drawer:SourcesView(),
+      drawer:CustomDrawer(),
+      body: context.watch<HomeScreenProvider>().homeScreenView
     );
   }
 }

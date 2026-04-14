@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news/core/resources/colors_manager.dart';
+import 'package:news/providers/home_screen_provider.dart';
+import 'package:provider/provider.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -25,7 +27,9 @@ class CustomDrawer extends StatelessWidget {
    child: Column(
      children: [
        InkWell(
-         onTap: (){},
+         onTap: (){
+           context.read<HomeScreenProvider>().goToCategories();
+         },
          child: Row(
            children: [
              Icon(Icons.home_filled, color: ColorsManager.white,),

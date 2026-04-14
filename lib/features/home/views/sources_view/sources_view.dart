@@ -4,11 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:news/core/resources/colors_manager.dart';
 import 'package:news/features/home/views/sources_view/article_item.dart';
 import 'package:news/models/article.dart';
+import 'package:news/models/category_model.dart';
 import 'package:news/models/source.dart';
 
 class SourcesView extends StatelessWidget {
-  SourcesView({super.key});
-
+  SourcesView({super.key, required this.category});
+CategoryModel category;
   List<Source> sources = [
     Source(id: "abc-news", name: "ABC News"),
     Source(id: "abc-news", name: "ABC News"),
