@@ -29,6 +29,7 @@ class CustomDrawer extends StatelessWidget {
        InkWell(
          onTap: (){
            context.read<HomeScreenProvider>().goToCategories();
+           Navigator.pop(context);
          },
          child: Row(
            children: [
