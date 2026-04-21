@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void onCategoryItemClicked(CategoryModel category){
     title = category.name;
-    view = SourcesView();
+    view = SourcesView(category: category,);
     setState(() {
 
     });
@@ -42,3 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
  Navigator.pop(context);
   }
 }
+
+
+
+/// Request Type
+/// 1- Get, Pot Delete Update
+/// 2- function name
+/// 3- parameters list
+/// 4- return type
