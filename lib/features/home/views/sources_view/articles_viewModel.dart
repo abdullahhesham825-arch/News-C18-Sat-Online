@@ -1,20 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:news/apis/api_service.dart';
-import 'package:news/apis/articlesResponse/Article.dart';
-import 'package:news/apis/sources_response/Source.dart';
 
-class ArticlesViewModel extends ChangeNotifier{
+import 'package:news/base_viewModel.dart';
+import 'package:news/data/apis/api_service.dart';
+import 'package:news/data/apis/articlesResponse/Article.dart';
+import 'package:news/data/apis/result.dart';
+import 'package:news/data/apis/sources_response/Source.dart';
+import 'package:news/data/repositories/articles_repository.dart';
+
+class ArticlesViewModel extends BaseViewMode<ArticlesState> {
+ArticlesRepository articlesRepository;
+ArticlesViewModel({required this.articlesRepository});
 
 
-  List<Article> articles =[];
-  bool isLoading = false;
-  String errorMessage = '';
 
-  void loadArticles(Source source, [String? searchKey])async{
-    isLoading = true;
-    notifyListeners();
-   articles = await APIService.getArticles(source) ?? [];
-    isLoading = false;
-    notifyListeners();
+  Future<void> loadArticles(Source source, [String? searchKey]) async {
+    emit(ArticlesLoading());
+    var result = await articlesRepository.getArticles(source);
+    switch (result) {
+      case Success():
+        {
+          emit(ArticlesSuccess(articles: result.data));
+        }
+      case ServerError():
+        {
+          emit(ArticlesError(message: result.message));
+        }
+      case Error():
+        {
+          emit(ArticlesError(message: result.message));
+        }
+    }
   }
+}
+
+sealed class ArticlesState {}
+
+class ArticlesInitial extends ArticlesState {}
+
+class ArticlesSuccess extends ArticlesState {
+  List<Article> articles;
+
+  ArticlesSuccess({required this.articles});
+}
+
+class ArticlesLoading extends ArticlesState {}
+
+class ArticlesError extends ArticlesState {
+  String message;
+
+  ArticlesError({required this.message});
 }
