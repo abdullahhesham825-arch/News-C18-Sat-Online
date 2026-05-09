@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news/core/resources/colors_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../apis/articlesResponse/Article.dart';
 
@@ -38,7 +39,10 @@ class ArticleBottomSheet extends StatelessWidget {
                   fontWeight: FontWeight.w500
                 ),
               ),
-              ElevatedButton(onPressed: () {},
+              ElevatedButton(onPressed: () async{
+                final Uri url = Uri.parse(article.url ?? '');
+                await launchUrl(url , mode: LaunchMode.inAppBrowserView);
+                },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ColorsManager.white,
                     foregroundColor: ColorsManager.black,
